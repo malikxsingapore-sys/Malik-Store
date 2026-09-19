@@ -1,12 +1,55 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Malik Store — Free Fire Diamonds</title><link rel="stylesheet" href="style.css"></head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Fire Diamond Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#090b16,#17112d);color:#fff;min-height:100vh;display:grid;place-items:center}
+.card{width:min(92%,430px);background:#171827;border:1px solid #343650;border-radius:22px;padding:28px;box-shadow:0 20px 60px #0008}
+.badge{display:inline-block;background:#ffb300;color:#171717;font-weight:800;padding:7px 12px;border-radius:999px;font-size:12px}
+h1{margin:14px 0 8px;font-size:30px}.sub{color:#b8bbca;margin-bottom:24px}
+label{display:block;margin:14px 0 7px;font-weight:700}input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #454962;background:#0e1020;color:white;font-size:16px}
+button{width:100%;margin-top:20px;padding:15px;border:0;border-radius:12px;background:#ffb300;color:#161616;font-size:17px;font-weight:900;cursor:pointer}
+button:disabled{opacity:.6}.result{display:none;margin-top:20px;padding:16px;border-radius:14px;background:#102719;border:1px solid #2e9d58}
+.small{font-size:12px;color:#9297aa;margin-top:18px;line-height:1.5}
+#bar{height:8px;background:#292d42;border-radius:99px;overflow:hidden;margin-top:15px;display:none}#fill{height:100%;width:0;background:#ffb300;transition:width .3s}
+</style>
+</head>
 <body>
-<header><div class="logo">👑 <span>MALIK</span><b>STORE</b></div><nav><a href="index.html">Home</a><a href="#diamonds">Diamonds</a><a href="#how">How to Order</a><a href="#support">Contact</a></nav><button class="cart" onclick="location.href='cart.html'">🛒 Cart <i id="cartCount">0</i></button></header>
-<section class="hero"><div><p class="eyebrow">MALIK STORE</p><h1>FREE FIRE<br><strong>DIAMONDS</strong></h1><p>Fast top-up • Secure checkout • 24/7 support</p><a class="btn" href="#diamonds">BUY DIAMONDS</a></div><div class="heroGem">💎</div></section>
-<section class="trust"><div>⚡<b> Fast Delivery</b><small>Quick order processing</small></div><div>🛡️<b> Secure</b><small>Your order details stay protected</small></div><div>🎧<b> Support</b><small>Help whenever you need it</small></div></section>
-<main id="diamonds"><div class="sectionTitle"><p>TOP UP</p><h2>Diamond Packages</h2></div><div id="products" class="grid"></div></main>
-<section id="how" class="how"><div><p>HOW TO ORDER</p><h2>Simple 3 Steps</h2></div><ol><li><b>1</b> Enter your Free Fire Player ID</li><li><b>2</b> Choose a diamond package</li><li><b>3</b> Complete checkout and keep your order ID</li></ol></section>
-<section id="support" class="support"><h2>Need Help?</h2><p>Contact Malik Store support for order assistance.</p><a class="btn" href="https://wa.me/" target="_blank">WHATSAPP SUPPORT</a></section>
-<footer><div class="logo">👑 MALIK <b>STORE</b></div><p>© 2026 Malik Store. All rights reserved.</p><a href="admin.html">Admin Panel</a></footer>
-<script src="app.js"></script></body></html>
+<main class="card">
+<span class="badge">DEMO / NOT REAL TOP-UP</span>
+<h1>💎 Diamond Sender</h1>
+<p class="sub">Free Fire-style demo simulator for testing and entertainment.</p>
+
+<label for="uid">Player UID</label>
+<input id="uid" inputmode="numeric" placeholder="Enter demo UID">
+
+<label for="amount">Demo Diamonds</label>
+<select id="amount">
+<option>100 Diamonds</option><option>500 Diamonds</option><option>1000 Diamonds</option>
+<option>5000 Diamonds</option><option>10000 Diamonds</option>
+</select>
+
+<button id="send">Send Demo Diamonds</button>
+<div id="bar"><div id="fill"></div></div>
+<div class="result" id="result"></div>
+
+<p class="small">⚠️ This page does not connect to Garena or Free Fire and cannot add, transfer, or purchase real diamonds. It is a fictional demo only.</p>
+</main>
+<script>
+const btn=document.getElementById('send'), uid=document.getElementById('uid'),
+bar=document.getElementById('bar'), fill=document.getElementById('fill'), result=document.getElementById('result');
+btn.onclick=()=>{
+ const id=uid.value.trim();
+ if(!/^\d{5,15}$/.test(id)){alert('Please enter a valid demo UID (5–15 digits).');return;}
+ btn.disabled=true; bar.style.display='block'; fill.style.width='0'; result.style.display='none';
+ let p=0; const timer=setInterval(()=>{
+   p+=20; fill.style.width=p+'%';
+   if(p>=100){clearInterval(timer);btn.disabled=false;result.style.display='block';
+   result.innerHTML='✅ Demo completed!<br><br><b>'+document.getElementById('amount').value+'</b> were simulated for UID <b>'+id+'</b>.<br><br>These are <b>NOT real diamonds</b> and nothing was added to a Free Fire account.';}
+ },300);
+};
+</script>
+</body>
+</html>
