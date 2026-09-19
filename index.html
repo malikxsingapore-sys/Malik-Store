@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Fire Diamond Demo</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diamond Demo</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#090b16,#17112d);color:#fff;min-height:100vh;display:grid;place-items:center}
 .card{width:min(92%,430px);background:#171827;border:1px solid #343650;border-radius:22px;padding:28px;box-shadow:0 20px 60px #0008}
@@ -12,44 +11,31 @@ h1{margin:14px 0 8px;font-size:30px}.sub{color:#b8bbca;margin-bottom:24px}
 label{display:block;margin:14px 0 7px;font-weight:700}input,select{width:100%;padding:14px;border-radius:12px;border:1px solid #454962;background:#0e1020;color:white;font-size:16px}
 button{width:100%;margin-top:20px;padding:15px;border:0;border-radius:12px;background:#ffb300;color:#161616;font-size:17px;font-weight:900;cursor:pointer}
 button:disabled{opacity:.6}.result{display:none;margin-top:20px;padding:16px;border-radius:14px;background:#102719;border:1px solid #2e9d58}
-.small{font-size:12px;color:#9297aa;margin-top:18px;line-height:1.5}
-#bar{height:8px;background:#292d42;border-radius:99px;overflow:hidden;margin-top:15px;display:none}#fill{height:100%;width:0;background:#ffb300;transition:width .3s}
+.small{font-size:12px;color:#9297aa;margin-top:18px;line-height:1.5}#bar{height:8px;background:#292d42;border-radius:99px;overflow:hidden;margin-top:15px;display:none}#fill{height:100%;width:0;background:#ffb300;transition:width .3s}
+.payment{display:none;margin-top:18px;padding:16px;border-radius:14px;background:#211b0b;border:1px solid #8c6b14}.payment b{color:#ffcf4a}
 </style>
 </head>
-<body>
-<main class="card">
+<body><main class="card">
 <span class="badge">DEMO / NOT REAL TOP-UP</span>
-<h1>💎 Diamond Sender</h1>
-<p class="sub">Free Fire-style demo simulator for testing and entertainment.</p>
+<h1>💎 Diamond Demo</h1>
+<p class="sub">Enjoy The Best Services</p>
 
-<label for="uid">Player UID</label>
-<input id="uid" inputmode="numeric" placeholder="Enter demo UID">
-
-<label for="amount">Demo Diamonds</label>
-<select id="amount">
-<option>100 Diamonds</option><option>500 Diamonds</option><option>1000 Diamonds</option>
-<option>5000 Diamonds</option><option>10000 Diamonds</option>
-</select>
-
-<button id="send">Send Demo Diamonds</button>
+<label>Player UID</label><input id="uid" inputmode="numeric" placeholder="Enter UID">
+<label>Diamonds</label>
+<select id="amount"><option value="100">100 Diamonds — Rs 100</option><option value="500">500 Diamonds — Rs 500</option><option value="1000">1000 Diamonds — Rs 1,000</option><option value="5000">5000 Diamonds — Rs 5,000</option></select>
+<button id="send">Continue</button>
 <div id="bar"><div id="fill"></div></div>
+<div class="payment" id="payment"></div>
 <div class="result" id="result"></div>
-
-<p class="small">⚠️ This page does not connect to Garena or Free Fire and cannot add, transfer, or purchase real diamonds. It is a fictional demo only.</p>
+<p class="small">This is a fictional demo simulator. It does not connect to Garena/Free Fire and cannot add real diamonds or process real payments.</p>
 </main>
 <script>
-const btn=document.getElementById('send'), uid=document.getElementById('uid'),
-bar=document.getElementById('bar'), fill=document.getElementById('fill'), result=document.getElementById('result');
+const btn=document.getElementById('send'),uid=document.getElementById('uid'),amount=document.getElementById('amount'),bar=document.getElementById('bar'),fill=document.getElementById('fill'),payment=document.getElementById('payment'),result=document.getElementById('result');
 btn.onclick=()=>{
- const id=uid.value.trim();
- if(!/^\d{5,15}$/.test(id)){alert('Please enter a valid demo UID (5–15 digits).');return;}
- btn.disabled=true; bar.style.display='block'; fill.style.width='0'; result.style.display='none';
- let p=0; const timer=setInterval(()=>{
-   p+=20; fill.style.width=p+'%';
-   if(p>=100){clearInterval(timer);btn.disabled=false;result.style.display='block';
-   result.innerHTML='✅ Demo completed!<br><br><b>'+document.getElementById('amount').value+'</b> were simulated for UID <b>'+id+'</b>.<br><br>These are <b>NOT real diamonds</b> and nothing was added to a Free Fire account.';}
- },300);
+ const id=uid.value.trim(); if(!/^\d{5,15}$/.test(id)){alert('Enter a valid UID (5–15 digits).');return;}
+ btn.disabled=true;payment.style.display='none';result.style.display='none';bar.style.display='block';fill.style.width='0%';let p=0;
+ const t=setInterval(()=>{p+=20;fill.style.width=p+'%';if(p>=100){clearInterval(t);btn.disabled=false;bar.style.display='none';
+ const price=amount.value;payment.style.display='block';payment.innerHTML='<b>Demo Payment Details</b><br><br>UID: <b>'+id+'</b><br>Package: <b>'+amount.options[amount.selectedIndex].text+'</b><br>Demo Amount: <b>Rs '+Number(price).toLocaleString()+'</b><br><br><b>Demo payment number:</b> 0300-0000000<br><br><small>No real payment should be made. This number is fictional.</small>';
+ result.style.display='block';result.innerHTML='✅ Demo order created. No real diamonds were sent.';}},250);
 };
-</script>
-</body>
-</html>
+</script></body></html>
